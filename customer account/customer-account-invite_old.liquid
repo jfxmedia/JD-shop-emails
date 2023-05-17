@@ -1,0 +1,295 @@
+{% capture email_title %}Activate your account{% endcapture %}
+{% capture email_body %}Hi, you've created a new customer account at <a href="{{shop.url}}">{{shop.name}}</a>. All you
+have to do is activate it.{% endcapture %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>{{ email_title }}</title>
+  <style type="text/css">
+    @font-face {
+      font-family: "Cambon-Italic";
+      src: url("{{ 'Cambon-Italic.woff' | file_url }}") format("woff");
+    }
+
+    ,
+    @font-face {
+      font-family: "Cambon-Light";
+      src: url("{{ 'Cambon-Light.woff' | file_url }}") format("woff");
+    }
+
+    ,
+    @font-face {
+      font-family: "Cambon-LightItalic";
+      src: url("{{ 'Cambon-LightItalic.woff' | file_url }}") format("woff");
+    }
+
+    ,
+    @font-face {
+      font-family: "Cambon-Thin";
+      src: url("{{ 'Cambon-Thin.woff' | file_url }}") format("woff");
+    }
+
+    ,
+    @font-face {
+      font-family: "Cambon-ThinItalic";
+      src: url("{{ 'Cambon-ThinItalic.woff' | file_url }}") format("woff");
+    }
+
+    ,
+    @font-face {
+      font-family: "Synthese-Light";
+      src: url("{{ 'Synthese-Light.woff' | file_url }}") format("otf");
+    }
+
+    ,
+    body {
+      width: 100%;
+      background: #fff;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    p,
+    td,
+    li,
+    a,
+    span {
+      font-size: 14px;
+      font-family: Synthese-Light, Verdana, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    img {
+      outline: none;
+      text-decoration: none;
+      -ms-interpolation-mode: bicubic;
+    }
+
+    a img {
+      border: none;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+
+    h1 {
+      font-weight: 200;
+      font-family: Cambon-ThinItalic, Verdana, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    h2,
+    h3 {
+      margin: 0;
+      margin-bottom: 10px;
+      text-align: left;
+      text-transform: uppercase;
+      color: #3A3F51;
+      font-weight: 700;
+      font-size: 1.1em;
+      font-family: Synthese-Light, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    table {
+      color: #000;
+      width: 100%;
+      border-spacing: 0px !important;
+    }
+
+    table td {
+      border-collapse: collapse;
+      color: #000000;
+    }
+
+    a,
+    a:active,
+    a:visited,
+    a:link {
+      text-decoration: none;
+      color: #000000;
+    }
+
+    .button,
+    .button:hover,
+    .button:active,
+    .button:visited {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .button__text {
+      margin: auto;
+      width: fit-content;
+      border: 1px solid #000;
+      background: #fff;
+      font-weight: 300;
+      font-size: 14px;
+      color: #000 !important;
+      text-transform: uppercase;
+      padding: 12px 30px;
+    }
+
+    .row.actions {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .link.secondary-action-cell {
+      margin: 0 auto;
+    }
+
+    .customer-info td {
+      vertical-align: top;
+    }
+
+    .customer-info .cell {
+      padding-bottom: 30px;
+    }
+
+    .customer-info-title {
+      font-size: 14px;
+      font-weight: 200;
+      padding-bottom: 10px;
+      margin-bottom: 7px !important;
+    }
+
+    .qty {
+      font-size: 12px;
+      line-height: 21px;
+    }
+    .summary table {width: 100%;}
+    .summary > td {padding: 30px 0 0;}
+    .summary .items .item > td {padding: 22px 0; border-bottom: 1px solid #E3E3E3;}
+    .summary .items .item .info {vertical-align: top;}
+    .summary .items .item .info p {margin: 0;}
+    .summary .items .item .info strong {font-size: inherit !important; font-weight: 200 !important;}
+    .summary .items .item .price {vertical-align: top; font-weight: light;}
+    .summary .subtotals {padding-top: 12px;}
+    .summary .subtotals .total td {font-weight: light; font-size: 16px; padding-top: 15px;}
+    .summary .price {text-align: right; color:#3A3F51;}
+  </style>
+</head>
+
+<body>
+    <table class="body">
+        <tr>
+            <td>
+                <table class="header row">
+                    <tr>
+                        <td class="header__cell">
+                            <center>
+
+                                <table class="container">
+                                    <tr>
+                                        <td>
+
+                                            <table class="row">
+                                                <tr>
+                                                    <td class="shop-name__cell">
+                                                        {%- if shop.email_logo_url %}
+                                                        <img src="{{shop.email_logo_url}}" alt="{{ shop.name }}"
+                                                            width="{{ shop.email_logo_width }}">
+                                                        {%- else %}
+                                                        <h1 class="shop-name__text">
+                                                            <a href="{{shop.url}}">{{ shop.name }}</a>
+                                                        </h1>
+                                                        {%- endif %}
+                                                    </td>
+
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="row content">
+                    <tr>
+                        <td class="content__cell">
+                            <center>
+                                <table class="container">
+                                    <tr>
+                                        <td>
+
+                                            <h2>{{ email_title }}</h2>
+                                            {% if custom_message != blank %}
+                                            <p>{{ custom_message }}</p>
+                                            {% else %}
+                                            <p>{{ email_body }}</p>
+                                            {% endif %}
+                                            <table class="row actions">
+                                                <tr>
+                                                    <td class="empty-line">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="actions__cell">
+                                                        <table class="button main-action-cell">
+                                                            <tr>
+                                                                <td class="button__cell"><a
+                                                                        href="{{ customer.account_activation_url }}"
+                                                                        class="button__text">Activate your account</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        {% if shop.url %}
+                                                        <table class="link secondary-action-cell">
+                                                            <tr>
+                                                                <td class="link__cell">or <a href="{{ shop.url }}">Visit
+                                                                        our store</a></td>
+                                                            </tr>
+                                                        </table>
+                                                        {% endif %}
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+                <table class="row footer">
+                    <tr>
+                        <td class="footer__cell">
+                            <center>
+                                <table class="container">
+                                    <tr>
+                                        <td>
+
+                                            <p class="disclaimer__subtext">If you have any questions, reply to this
+                                                email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email
+                                                    }}</a></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+
+                <img src="{{ 'notifications/spacer.png' | shopify_asset_url }}" class="spacer" height="1" />
+
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

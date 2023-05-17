@@ -1,0 +1,700 @@
+{% capture shop_name %}Jean Dousset{% endcapture %}
+{% capture email_title %}Thank you for choosing Jean Dousset {% endcapture %}
+
+{% capture email_body %}
+Hi {{ customer.first_name }}, Thank you for shopping with us! Below are the details of your order. We will provide
+periodic email updates for any made-to-order jewelry up until it is ready to be shipped.
+{% endcapture %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>{{ email_title }}</title>
+    <style type="text/css">
+        @font-face {
+            font-family: "Cambon-Italic";
+            src: url("{{ 'Cambon-Italic.woff' | file_url }}") format("woff");
+        }
+
+        ,
+        @font-face {
+            font-family: "Cambon-Light";
+            src: url("{{ 'Cambon-Light.woff' | file_url }}") format("woff");
+        }
+
+        ,
+        @font-face {
+            font-family: "Cambon-LightItalic";
+            src: url("{{ 'Cambon-LightItalic.woff' | file_url }}") format("woff");
+        }
+
+        ,
+        @font-face {
+            font-family: "Cambon-Thin";
+            src: url("{{ 'Cambon-Thin.woff' | file_url }}") format("woff");
+        }
+
+        ,
+        @font-face {
+            font-family: "Synthese-Light";
+            src: url("{{ 'Synthese-Light.woff' | file_url }}") format("otf");
+        }
+
+        ,
+
+        body {
+            width: 100%;
+            background: #f5f5f5;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        p,
+        td,
+        li,
+        a,
+        span {
+            font-size: 14px;
+            font-family: Synthese-Light, Verdana, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        img {
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+        }
+
+        a img {
+            border: none;
+        }
+
+        p {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 24px;
+        }
+
+        h1 {
+            font-style: italic;
+            font-family: 'EB Garamond', serif;
+            font-weight: 200;
+        }
+
+        h2,
+        h3 {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: left;
+            text-transform: uppercase;
+            color: #3A3F51;
+            font-weight: 300;
+            font-size: 1.1em;
+            font-family: Verdana, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        table {
+            color: #000;
+        }
+
+        table td {
+            border-collapse: collapse;
+            color: #000000;
+        }
+
+        a,
+        a:active,
+        a:visited,
+        a:link {
+            text-decoration: none;
+            color: #000000;
+        }
+
+        .button,
+        .button:hover,
+        .button:active,
+        .button:visited {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .summary table {
+            width: 100%;
+        }
+
+        .summary>td {
+            padding: 30px 0 0;
+        }
+
+        .summary .items .item>td {
+            padding: 22px 0;
+            border-bottom: 1px solid #E3E3E3;
+        }
+
+        .summary .items .item .info {
+            vertical-align: top;
+        }
+
+        .summary .items .item .info p {
+            margin: 0;
+        }
+
+        .summary .items .item .info strong {
+            font-size: inherit !important;
+            font-weight: light !important;
+        }
+
+        .summary .items .item .price {
+            vertical-align: top;
+            font-weight: light;
+        }
+
+        .summary .subtotals {
+            padding-top: 12px;
+        }
+
+        .summary .subtotals .total td {
+            font-weight: light;
+            font-size: 16px;
+            padding-top: 15px;
+        }
+
+        .summary .price {
+            text-align: right;
+        }
+
+        .customer-info td {
+            vertical-align: top;
+        }
+
+        .customer-info .cell {
+            padding-bottom: 30px;
+        }
+
+        .customer-info-title {
+            font-size: 14px;
+            font-weight: 300;
+            border-bottom: 1px solid #E3E3E3;
+            padding-bottom: 10px;
+            margin-bottom: 7px !important;
+        }
+
+        .qty {
+            font-size: 12px;
+            line-height: 21px;
+        }
+    </style>
+</head>
+
+<body>
+    <table style="width: 100%;">
+        <tr>
+            <td style="padding: 60px 10px; background-color: #f5f5f5;" cellpadding="0" cellspacing="0">
+                <center>
+                    <table border="0" cellpadding="0" cellspacing="0"
+                        style="background-color: #ffffff; width: 540px; margin: auto; text-align: center;">
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr style="background-color: #000000;">
+                                        <td align="center" style="padding-top: 24px; padding-bottom: 24px;">
+                                            <a href="{{shop.url}}">
+                                                <img src="{{shop.email_logo_url }}"
+                                                    width="{{ shop.email_logo_width }}" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="padding: 0 30px; padding-top: 41px; padding-bottom: 41px; text-align: left;">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="text-align: left;">
+                                                        <span
+                                                            style="color: #000; font-size: 20px; font-weight: 200; line-height: 20px;">
+                                                            ORDER {{ order_name }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="padding-bottom: 20px; padding-top: 16px; text-align: left;">
+                                                        <h1
+                                                            style="font-weight: 200; margin-top: 0; line-height: 32px; font-size: 30px; margin-bottom: 19px; color: #000;">
+                                                            {{ email_title }}
+                                                        </h1>
+                                                        <p style="max-width: 402px;">
+                                                            {{ email_body }}
+                                                        </p>
+                                                        {% if fulfillment.estimated_delivery_at %}
+                                                        <p style="max-width: 402px;">{{ email_emphasis }}</p>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                {% for tracking_number in fulfillment.tracking_numbers %}
+                                                <tr>
+
+                                                </tr>
+                                                {% endfor %}
+                                                <tr>
+                                                    <td>
+                                                        <table border="0" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td style="padding-bottom: 40px;">
+                                                                    <a href="{{ shop.url }}" target="_blank"
+                                                                        style="color: #000; text-decoration: underline; font-weight: 300;">
+                                                                        Visit Our Store
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr class="customer-info">
+                                                    <td>
+                                                        <table style="width: 100%;">
+                                                            <tr>
+                                                                <td class="cell"
+                                                                    style="width: 50%; padding-right: 45px;">
+                                                                    <h2 class="customer-info-title">Billing Address</h2>
+                                                                    {% if billing_address %}
+                                                                    <p>
+                                                                        {{ billing_address.name }}
+                                                                        <br />
+                                                                        {{ billing_address.address1 }}
+                                                                        {% if billing_address.address2 %}
+                                                                        <br />{{ billing_address.address2 }}
+                                                                        {% endif %}
+                                                                        <br />{{ billing_address.city }}, {{
+                                                                        billing_address.province }} {{
+                                                                        billing_address.zip }}
+                                                                        <br />{{ billing_address.country }}
+                                                                    </p>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td class="cell" style="width: 50%;">
+                                                                    <h2 class="customer-info-title">Shipping Address
+                                                                    </h2>
+                                                                    {% if requires_shipping and shipping_address %}
+                                                                    <p>
+                                                                        {{ shipping_address.name }}
+                                                                        <br />
+                                                                        {{ shipping_address.address1 }}
+                                                                        {% if shipping_address.address2 %}
+                                                                        <br />{{ shipping_address.address2 }}
+                                                                        {% endif %}
+                                                                        <br />{{ shipping_address.city }}, {{
+                                                                        shipping_address.province }} {{
+                                                                        shipping_address.zip }}
+                                                                        <br />{{ shipping_address.country }}
+                                                                    </p>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                {% if requires_shipping and shipping_address %}
+                                                                <td class="cell" style="padding-right: 45px;">
+                                                                    <h2 class="customer-info-title">Shipping method</h2>
+                                                                    <p>{{ shipping_method.title }}</p>
+                                                                </td>
+                                                                {% endif %}
+                                                                {% assign transaction_count = transactions | size %}
+                                                                {% if transaction_count > 0 %}
+                                                                <td class="cell">
+                                                                    <h2 class="customer-info-title">Payment method</h2>
+                                                                    {% for transaction in transactions %}
+                                                                    {% if transaction.status == "success" or
+                                                                    transaction.status == "pending" %}
+                                                                    {% if transaction.kind == "authorization" or
+                                                                    transaction.kind == "sale" %}
+                                                                    <p>
+                                                                        {% if
+                                                                        transaction.payment_details.credit_card_company
+                                                                        %}
+                                                                        {{
+                                                                        transaction.payment_details.credit_card_company
+                                                                        }}
+                                                                        <span>Ending in {{
+                                                                            transaction.payment_details.credit_card_last_four_digits
+                                                                            }} — <span style="color: #3A3F51;">{{
+                                                                                total_price | money }}</span></span> {%
+                                                                        else %}
+                                                                        {{ transaction.gateway | replace: "_", " " |
+                                                                        capitalize }} — <span style="color: #3A3F51;">{{
+                                                                            transaction.amount | money }}</span>
+                                                                        {% endif %}
+                                                                    </p>
+                                                                    {% endif %}
+                                                                    {% endif %}
+                                                                    {% endfor %}
+                                                                </td>
+                                                                {% endif %}
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr class="summary">
+                                                    <td style="padding-top: 11px;">
+                                                        <h2 class="customer-info-title"
+                                                            style="font-size:20px;margin-bottom: 0 !important;">Order
+                                                            Summary</h2>
+                                                        <table>
+                                                            <tr>
+                                                                <td class="wrapper">
+                                                                    <table class="items">
+                                                                        {% for line in line_items %}
+                                                                        {% assign line_item = line %}
+                                                                        {% assign product_is_ring = false %}
+                                                                        {% assign product_is_diamond = false %}
+                                                                        {% assign product_is_bundle = false %}
+                                                                        {% assign product_has_bundle_price = false %}
+                                                                        {% assign bundle_id = "" %}
+                                                                        {% assign total_bundle_price = 0 %}
+                                                                        {% if line_item.product.type == "rings" %}
+                                                                        {% assign product_is_ring = true %}
+                                                                        {% for p in line_item.properties %}
+                                                                        {% if p.first == "_bundle_id" %}
+                                                                        {% assign product_is_bundle = true %}
+                                                                        {% assign bundle_id = p.last %}
+                                                                        {% endif %}
+                                                                        {% endfor %}
+                                                                        {% endif %}
+                                                                        {% for prop in line_item.properties %}
+                                                                        {% assign is_related_single = false %}
+                                                                        {% if prop.first == "_bundle_item" and prop.last
+                                                                        == "related_single" %}
+                                                                        {% assign is_related_single = true %}
+                                                                        {% endif %}
+                                                                        {% if prop.first == "_is_diamond" or
+                                                                        is_related_single %}
+                                                                        {% assign product_is_diamond = true %}
+                                                                        {% endif %}
+                                                                        {% endfor %}
+                                                                        {% if product_is_ring and product_is_bundle %}
+                                                                        {% assign product_has_bundle_price = true %}
+                                                                        {% for cart_item in order.line_items %}
+                                                                        {% for prop in cart_item.properties %}
+                                                                        {% if prop.first == "_bundle_id" and prop.last
+                                                                        == bundle_id %}
+                                                                        {% assign diamond_product = cart_item %}
+                                                                        {% assign total_bundle_price =
+                                                                        total_bundle_price | plus: cart_item.line_price
+                                                                        %}
+                                                                        {% endif %}
+                                                                        {% endfor %}
+                                                                        {% endfor %}
+                                                                        {% endif %}
+
+                                                                        {% unless product_is_diamond %}
+                                                                        <tr
+                                                                            class="item {% if forloop.first %}first{% endif %}">
+                                                                            <td style="">
+                                                                                <table>
+                                                                                    <tr>
+                                                                                        <td style="width: 86px;">
+                                                                                            {% if line.image %}
+                                                                                            <img src="{{ line | img_url: 'compact_cropped' }}"
+                                                                                                align="left" width="71"
+                                                                                                height="71" />
+                                                                                            {% endif %}
+                                                                                        </td>
+                                                                                        <td class="info">
+                                                                                            <table>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        {% if
+                                                                                                        line.product.title
+                                                                                                        %}
+                                                                                                        {% assign
+                                                                                                        line_title =
+                                                                                                        line.product.title
+                                                                                                        %}
+                                                                                                        {% else %}
+                                                                                                        {% assign
+                                                                                                        line_title =
+                                                                                                        line.title %}
+                                                                                                        {% endif %}
+                                                                                                        <p class="title"
+                                                                                                            style="line-height: 21px;">
+                                                                                                            {{
+                                                                                                            line_title
+                                                                                                            }}</p>
+
+                                                                                                        {% unless
+                                                                                                        diamond_product
+                                                                                                        %}
+                                                                                                        {% unless
+                                                                                                        line.variant.title
+                                                                                                        == 'Default
+                                                                                                        Title' %}
+                                                                                                        <p
+                                                                                                            class="details">
+                                                                                                            {% assign
+                                                                                                            options =
+                                                                                                            line.variant.title
+                                                                                                            | split: ' /
+                                                                                                            ' %}
+                                                                                                            {% for
+                                                                                                            option in
+                                                                                                            line.product.options
+                                                                                                            %}
+                                                                                                            {{ option
+                                                                                                            }}: {{
+                                                                                                            options[forloop.index0]
+                                                                                                            }}<br>
+                                                                                                            {% endfor %}
+                                                                                                            <!-- Logic for lead_time_information Metafield -->
+                                                                                                            {% if
+                                                                                                            line.variant.metafields.variant.lead_time_information
+                                                                                                            != blank %}
+                                                                                                            <span>Expected
+                                                                                                                Shipping
+                                                                                                                Timeframe:
+                                                                                                                {{line.variant.metafields.variant.lead_time_information}}</span>
+                                                                                                            {% elsif
+                                                                                                            line.product.metafields.product.lead_time_information
+                                                                                                            != blank %}
+                                                                                                            <span>Expected
+                                                                                                                Shipping
+                                                                                                                Timeframe:
+                                                                                                                {{line.product.metafields.product.lead_time_information}}</span>
+                                                                                                            {% endif %}
+
+                                                                                                        </p>
+                                                                                                        {% endunless %}
+                                                                                                        {% endunless %}
+
+                                                                                                        {%- if
+                                                                                                        diamond_product
+                                                                                                        -%}
+                                                                                                        <h4
+                                                                                                            class="subtitle">
+                                                                                                            Diamond</h4>
+                                                                                                        {%- for p in
+                                                                                                        diamond_product.properties
+                                                                                                        -%}
+                                                                                                        {%- if
+                                                                                                        p.first.first !=
+                                                                                                        '_' %}
+                                                                                                        {%- if p.last !=
+                                                                                                        blank -%}
+                                                                                                        <div
+                                                                                                            class="property flex justify-content-between align-items-center info-group">
+                                                                                                            <span
+                                                                                                                class="info-label">{{
+                                                                                                                p.first
+                                                                                                                |
+                                                                                                                replace:
+                                                                                                                '
+                                                                                                                (Complimentary)',
+                                                                                                                '' }}:
+                                                                                                            </span><span
+                                                                                                                class="info-value text-left">{{
+                                                                                                                p.last
+                                                                                                                }}</span>
+                                                                                                        </div>
+                                                                                                        {%- endif -%}
+                                                                                                        {%- endif -%}
+                                                                                                        {%- endfor -%}
+                                                                                                        {%- endif -%}
+
+                                                                                                        {%- if
+                                                                                                        diamond_product
+                                                                                                        -%}
+                                                                                                        <h4
+                                                                                                            class="subtitle">
+                                                                                                            Setting</h4>
+                                                                                                        {%- endif -%}
+                                                                                                        <!-- variants -->
+                                                                                                        {%- unless
+                                                                                                        line_item.product.has_only_default_variant
+                                                                                                        -%}
+                                                                                                        {%- endunless
+                                                                                                        -%}
+
+                                                                                                        {%- for p in
+                                                                                                        line_item.properties
+                                                                                                        -%}
+                                                                                                        {%- if
+                                                                                                        p.first.first !=
+                                                                                                        '_' %}
+                                                                                                        <span>{{ p.first
+                                                                                                            }}: </span>
+                                                                                                        {%- if p.last
+                                                                                                        contains
+                                                                                                        '/uploads/' -%}
+                                                                                                        <a
+                                                                                                            href="{{ p.last }}">{{
+                                                                                                            p.last |
+                                                                                                            split: '/' |
+                                                                                                            last }}</a>
+                                                                                                        {%- else -%}
+                                                                                                        {{ p.last }}
+                                                                                                        {%- endif -%}
+                                                                                                        <br>
+                                                                                                        {%- endif -%}
+                                                                                                        {%- endfor -%}
+
+                                                                                                        <p class="qty">
+                                                                                                            QUANTITY: {{
+                                                                                                            line.quantity
+                                                                                                            }}</p>
+                                                                                                    </td>
+
+                                                                                                    <td class="price"
+                                                                                                        style="color: #3A3F51;">
+                                                                                                        {%- if
+                                                                                                        product_has_bundle_price
+                                                                                                        -%}
+                                                                                                        {{
+                                                                                                        total_bundle_price
+                                                                                                        |
+                                                                                                        money_without_trailing_zeros
+                                                                                                        | replace: '.',
+                                                                                                        ',' }}
+                                                                                                        {%- else -%}
+                                                                                                        {{
+                                                                                                        line_item.price
+                                                                                                        | money }}
+                                                                                                        {%- endif -%}
+                                                                                                    </td>
+
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </td>
+                                                                        </tr>
+                                                                        {% endunless %}
+                                                                        {% endfor %}
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="subtotals">
+                                                                    <table style="width: 100%;">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <table>
+                                                                                    <tr
+                                                                                        style="font-weight: 300; margin-bottom: 6px;">
+                                                                                        <td style="color: #3A3F51;">
+                                                                                            Subtotal</td>
+                                                                                        <td class="price"
+                                                                                            style="color: #3A3F51;">{{
+                                                                                            subtotal_price | money }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    {% if discounts %}
+                                                                                    <tr
+                                                                                        style="margin-bottom: 6px;color: #3A3F51!important;">
+                                                                                        <td
+                                                                                            style="color: #3A3F51!important;">
+                                                                                            Discount</td>
+                                                                                        <td class="price"
+                                                                                            style="color: #3A3F51!important;">
+                                                                                            {{ discounts_savings | money
+                                                                                            }}</td>
+                                                                                    </tr>
+                                                                                    {% endif %}
+                                                                                    <tr
+                                                                                        style="margin-bottom: 6px;color: #3A3F51!important;">
+                                                                                        <td
+                                                                                            style="color: #3A3F51!important;">
+                                                                                            Shipping</td>
+                                                                                        <td class="price"
+                                                                                            style="color: #3A3F51!important;">
+                                                                                            {{ shipping_price | money }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr
+                                                                                        style="color: #3A3F51!important;">
+                                                                                        <td
+                                                                                            style="color: #3A3F51!important;">
+                                                                                            Sales Tax</td>
+                                                                                        <td class="price"
+                                                                                            style="color: #3A3F51!important;">
+                                                                                            {{ tax_price | money }}</td>
+                                                                                    </tr>
+                                                                                    <tr class="total"
+                                                                                        style="color:#000!important;">
+                                                                                        <td style="">Total</td>
+                                                                                        <td class="price" style="">{{
+                                                                                            total_price | money }}</td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: #16181F;">
+                                        <td
+                                            style="padding-bottom: 11px; padding-top: 34px; padding-left: 43px; padding-right: 48px;">
+
+                                            <table style="text-align: center;justify-content: center;margin: 0 auto">
+                                                <td
+                                                    style="margin:0 auto;width: 100%; text-align: center; padding-bottom: 20px">
+                                                    <a href="{{shop.url}}">
+                                                        <img src="https://cdn.shopify.com/s/files/1/0651/0297/1135/files/Jean_Dousset_Icon_Logo_-_White.svg?v=1678486269"
+                                                            width="34" />
+                                                    </a>
+                                                </td>
+
+                                                <tr>
+                                                    <td style="white-space: nowrap; width: 126px;">
+                                                        <a style="margin-right: 40px;" target="_blank"
+                                                            href="https://www.instagram.com/jeandousset/">
+                                                            <img height="20"
+                                                                src="https://cdn.shopify.com/s/files/1/0651/0297/1135/files/IG.png?v=1670351271" />
+                                                        </a>
+                                                        <a style="margin-right: 40px;" target="_blank"
+                                                            href="http://www.facebook.com/JeanDousset">
+                                                            <img height="20"
+                                                                src="https://cdn.shopify.com/s/files/1/0651/0297/1135/files/FB.png?v=1670351271" />
+                                                        </a>
+                                                        <a target="_blank"
+                                                            href="https://www.pinterest.com/jeandousset/">
+                                                            <img height="20"
+                                                                src="https://cdn.shopify.com/s/files/1/0651/0297/1135/files/Pinterest.png?v=1670351271" />
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td
+                                            style="padding: 25px 15px; text-align: center; font-size: 12px; background: #16181F; color: #CCCCCC; font-family: Montserrat, Verdana, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto';">
+                                            &copy; 2023 {{ shop_name }}. All Rights Reserved.
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

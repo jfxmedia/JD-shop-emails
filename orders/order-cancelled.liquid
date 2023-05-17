@@ -1,0 +1,263 @@
+{% capture email_title %}Your order has been canceled{% endcapture %}
+    {% capture email_body %}
+      {% if financial_status == 'voided' %}
+        {% case cancel_reason %}
+        {% when 'customer' %}
+          Order {{ name }} was canceled at your request and your payment has been voided
+        {% when 'inventory' %}
+          Order {{ name }} was canceled because we did not have enough stock to fulfill your order and your payment has been voided
+        {% when 'fraud' %}
+          Order {{ name }} was canceled because of unforeseen circumstances and your payment has been voided
+        {% when 'other' %}
+          Order {{ name }} was canceled because of unforeseen circumstances and your payment has been voided
+        {% endcase %}
+      {% elsif financial_status == 'refunded' %}
+        {% case cancel_reason %}
+        {% when 'customer' %}
+          Order {{ name }} was canceled at your request and your payment has been refunded
+        {% when 'inventory' %}
+          Order {{ name }} was canceled because we did not have enough stock to fulfill your order and your payment has been refunded
+        {% when 'fraud' %}
+          Order {{ name }} was canceled because of unforeseen circumstances and your payment has been refunded
+        {% when 'other' %}
+          Order {{ name }} was canceled because of unforeseen circumstances and your payment has been refunded
+        {% endcase %}
+      {% endif %}
+      .
+    {% endcapture %}
+    
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta name="viewport" content="width=device-width">
+            <title>{{ email_title }}</title>
+            <style type="text/css">
+            @font-face {
+                font-family: "Cambon-Italic";
+                src: url("{{ 'Cambon-Italic.woff' | file_url }}") format("woff");
+              },
+              @font-face {
+                font-family: "Cambon-Light";
+                src: url("{{ 'Cambon-Light.woff' | file_url }}") format("woff");
+              },
+              @font-face {
+                font-family: "Cambon-LightItalic";
+                src: url("{{ 'Cambon-LightItalic.woff' | file_url }}") format("woff");
+              },
+              @font-face {
+                font-family: "Cambon-Thin";
+                src: url("{{ 'Cambon-Thin.woff' | file_url }}") format("woff");
+              },
+               @font-face {
+                font-family: "Synthese-Light";
+                src: url("{{ 'Synthese-Light.woff' | file_url }}") format("otf");
+              },
+                  body {width:100%; background: #f5f5f5; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}
+                body, p, td, li, a, span {font-size: 14px; font-family: Synthese-Light, Verdana, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;}
+                img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;}
+                a img {border:none;}
+                p {margin: 0; font-size: 14px; font-weight: 400; line-height: 24px;}
+                h1 { font-family: Cambon-LightItalic, Verdana, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;}
+                
+                h2, h3 {margin: 0; margin-bottom: 10px; text-align: left; text-transform: uppercase; color: #3A3F51; font-weight: 700; font-size: 1.1em; font-family: Synthese-Light, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;}
+                table {color: #000;}
+                table td {border-collapse: collapse; color: #000000;}
+                a, a:active, a:visited, a:link {text-decoration: none; color: #000000;}
+                .button, .button:hover, .button:active, .button:visited {color: #fff; text-decoration: none;}
+                .button__text { font-weight: 200; font-size: 14px; color: #000 !important; text-transform: uppercase; padding: 7px 35px;}
+                .row.actions { margin: 0 auto; text-align: center; }
+                .link.secondary-action-cell { margin: 0 auto; }
+    
+                .summary table {width: 100%;}
+                .summary > td {padding: 30px 0 0;}
+                .summary .items .item > td {padding: 22px 0; border-bottom: 1px solid #E3E3E3;}
+                .summary .items .item .info {vertical-align: top;}
+                .summary .items .item .info p {margin: 0;}
+                .summary .items .item .info strong {font-size: inherit !important; font-weight: normal !important;}
+                .summary .items .item .price {vertical-align: top; font-weight: light;}
+                .summary .subtotals {padding-top: 12px;}
+                .summary .subtotals .total td {font-weight: light; font-size: 16px; padding-top: 15px;}
+                .summary .price {text-align: right;}
+    
+                .customer-info td {vertical-align: top;}
+                .customer-info .cell {padding-bottom: 30px;}
+                .customer-info-title {font-size: 14px; font-weight: 700; border-bottom: 1px solid #E3E3E3; padding-bottom: 10px; margin-bottom: 7px !important;}
+                .qty {font-size: 12px; line-height: 21px;}
+
+                table tr td center table tr td table tr td table tr td h1 {font-size:32px!important;font-weight:200!important;}
+                .summary .subtotals table tr td table tr {color:#3A3F51!important; font-weight:200!important;}
+                .summary .subtotals table tr td table tr td {color:#3A3F51!important; font-weight:200!important;}
+                .summary .subtotals table tr td table .total td {color:#000!important; font-weight:300!important;}
+                .summary h2 {font-size:20px!important; font-family: "Synthese-Light";font-weight:200!important;}
+            </style>
+        </head>
+        <body>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="padding: 60px 10px; background-color: #f5f5f5;" cellpadding="0" cellspacing="0">
+                        <center>
+                            <table border="0" cellpadding="0" cellspacing="0" style="background-color: #ffffff; width: 540px; margin: auto; text-align: center;">
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                            <tr style="background-color: #000000;">
+                                                <td align="center" style="padding-top: 24px; padding-bottom: 24px;">
+                                                    <a href="{{shop.url}}">
+                                                        <img src="{{shop.email_logo_url}}" width="{{ shop.email_logo_width }}" />
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 0 30px; padding-top: 41px; padding-bottom: 41px; text-align: left;">
+                                                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="text-align: left;">
+                                                                <span style="color: #000; font-size: 20px; font-weight: 200; line-height: 20px;">
+                                                                    ORDER {{ order_name }}
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding-bottom: 40px; padding-top: 16px; text-align: left;">
+                                                                <h1 style="font-weight: 400; margin-top: 0; line-height: 20px; font-size: 24px; margin-bottom: 19px; color: #000;">
+                                                                    {{ email_title }}
+                                                                  </h1>
+                                                                <p style="max-width: 402px;">
+                                                                    {{ email_body }}
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                        <tr class="summary">
+                                                            <td style="padding-top: 11px;">
+                                                                <h2 class="customer-info-title" style="margin-bottom: 0 !important;">Refunded Items</h2>
+                                                                <table>
+                                                                    <tr>
+                                                                        <td class="wrapper">
+                                                                            <table class="items">
+                                                                                {% for line in line_items %}
+                                                                                    <tr class="item {% if forloop.first %}first{% endif %}">
+                                                                                        <td style="">
+                                                                                            <table>
+                                                                                                <tr>
+                                                                                                    <td style="width: 86px;">
+                                                                                                        {% if line.image %}
+                                                                                                            <img src="{{ line | img_url: 'compact_cropped' }}" align="left" width="71" height="71" />
+                                                                                                        {% endif %}
+                                                                                                    </td>
+                                                                                                    <td class="info">
+                                                                                                        <table>
+                                                                                                            <tr>
+                                                                                                                <td>
+                                                                                                                    {% if line.product.title %}
+                                                                                                                        {% assign line_title = line.product.title %}
+                                                                                                                    {% else %}
+                                                                                                                        {% assign line_title = line.title %}
+                                                                                                                    {% endif %}
+                                                                                                                    <p class="title" style="line-height: 21px;">{{ line_title }}</p>
+                                                                                                                    {% unless line.variant.title == 'Default Title' %}
+                                                                                                                        <p class="details">
+                                                                                                                            {% assign options = line.variant.title | split: ' / ' %}
+                                                                                                                            {% for option in line.product.options %}
+                                                                                                                                {{ option }}: {{ options[forloop.index0] }}<br>
+                                                                                                                            {% endfor %}
+                                                                                                                        </p>
+                                                                                                                    {% endunless %}
+                                                                                                                    <p class="qty">QUANTITY: {{ line.quantity }}</p>
+                                                                                                                </td>
+                                                                                                                <td class="price" style="color: #3A3F51;">
+                                                                                                                    {{ line.line_price | money }}
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </table>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                {% endfor %}
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="subtotals">
+                                                                            <table style="width: 100%;">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <table>
+                                                                                            <tr style="font-weight: 700; margin-bottom: 6px;">
+                                                                                                <td style="color: #3A3F51;">Subtotal</td>
+                                                                                                <td class="price" style="color: #3A3F51;">{{ subtotal_price | money }}</td>
+                                                                                            </tr>
+                                                                                            {% if discounts %}
+                                                                                            <tr style="margin-bottom: 6px;">
+                                                                                                <td>Discount</td>
+                                                                                                <td class="price">{{ discounts_savings | money }}</td>
+                                                                                            </tr>
+                                                                                            {% endif %}
+                                                                                            <tr style="margin-bottom: 6px;">
+                                                                                                <td>Shipping</td>
+                                                                                                <td class="price">{{ shipping_price | money }}</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>Sales Tax</td>
+                                                                                                <td class="price">{{ tax_price | money  }}</td>
+                                                                                            </tr>
+                                                                                            <tr class="total">
+                                                                                                <td style="color: #3A3F51;">Total</td>
+                                                                                                <td class="price" style="color: #3A3F51;">{{ total_price | money }}</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr style="background-color: #16181F;">
+                                                <td style="padding-bottom: 11px; padding-top: 34px; padding-left: 43px; padding-right: 48px;">
+                                                    
+                                                                     <table style="text-align: center;display:flex;justify-content:center;">
+                                                <td style="width: 100%; text-align: center; padding-bottom: 20px">
+                                                <a href="{{shop.url}}">
+                                                <img src="https://cdn.shopify.com/s/files/1/0651/0297/1135/files/Jean_Dousset_Icon_Logo_-_White.svg?v=1678486269" width="34" />
+                                                </a>                              
+                                                </td>
+    
+                                                <tr>
+                                                <td style="white-space: nowrap; width: 126px;">
+                                                <a style="margin-right: 40px;" target="_blank" href="https://www.instagram.com/jeandousset/">
+                                                <img height="20" src="https://cdn.shopify.com/s/files/1/0651/0297/1135/files/IG.png?v=1670351271" />
+                                                </a>
+                                                <a style="margin-right: 40px;" target="_blank" href="http://www.facebook.com/JeanDousset">
+                                                <img height="20" src="https://cdn.shopify.com/s/files/1/0651/0297/1135/files/FB.png?v=1670351271" />
+                                                </a>
+                                                <a target="_blank" href="https://www.pinterest.com/jeandousset/">
+                                                <img height="20" src="https://cdn.shopify.com/s/files/1/0651/0297/1135/files/Pinterest.png?v=1670351271" />
+                                                </a>
+                                                </td>
+                                                </tr>
+                                            </table>
+    
+                                            </td>
+                                            </tr>
+    
+    
+                                            <tr>
+                                                <td style="padding: 25px 15px; text-align: center; font-size: 12px; background: #16181F; color: #CCCCCC; font-family: Montserrat, Verdana, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto';">
+                                                    &copy; 2023 {{ shop_name }}. All Rights Reserved.
+                                                </td>
+                                            </tr>
+                                            </table>
+                        </center>
+                    </td>
+                </tr>
+            </table>
+        </body>
+    </html>
